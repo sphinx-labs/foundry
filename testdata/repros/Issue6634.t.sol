@@ -25,52 +25,20 @@ contract Issue6634Test is DSTest {
 
         Vm.AccountAccess[] memory called = vm.stopAndReturnStateDiff();
         address addr = vm.computeCreate2Address(
-            0,
-            keccak256(abi.encodePacked(type(Box).creationCode, uint(1))),
-            address(CREATE2_DEPLOYER)
+            0, keccak256(abi.encodePacked(type(Box).creationCode, uint256(1))), address(CREATE2_DEPLOYER)
         );
-        assertEq(
-            addr,
-            called[1].account,
-            "state diff contract address is not correct"
-        );
-        assertEq(
-            address(a),
-            called[1].account,
-            "returned address is not correct"
-        );
+        assertEq(addr, called[1].account, "state diff contract address is not correct");
+        assertEq(address(a), called[1].account, "returned address is not correct");
 
         assertEq(called.length, 2, "incorrect length");
+        assertEq(uint256(called[0].kind), uint256(Vm.AccountAccessKind.Call), "first AccountAccess is incorrect kind");
+        assertEq(called[0].account, CREATE2_DEPLOYER, "first AccountAccess account is incorrect");
+        assertEq(called[0].accessor, address(this), "first AccountAccess accessor is incorrect");
         assertEq(
-            uint256(called[0].kind),
-            uint256(Vm.AccountAccessKind.Call),
-            "first AccountAccess is incorrect kind"
+            uint256(called[1].kind), uint256(Vm.AccountAccessKind.Create), "second AccountAccess is incorrect kind"
         );
-        assertEq(
-            called[0].account,
-            CREATE2_DEPLOYER,
-            "first AccountAccess account is incorrect"
-        );
-        assertEq(
-            called[0].accessor,
-            address(this),
-            "first AccountAccess accessor is incorrect"
-        );
-        assertEq(
-            uint256(called[1].kind),
-            uint256(Vm.AccountAccessKind.Create),
-            "second AccountAccess is incorrect kind"
-        );
-        assertEq(
-            called[1].accessor,
-            CREATE2_DEPLOYER,
-            "second AccountAccess accessor is incorrect"
-        );
-        assertEq(
-            called[1].account,
-            address(a),
-            "second AccountAccess account is incorrect"
-        );
+        assertEq(called[1].accessor, CREATE2_DEPLOYER, "second AccountAccess accessor is incorrect");
+        assertEq(called[1].account, address(a), "second AccountAccess account is incorrect");
     }
 
     function testPrank() public {
@@ -83,52 +51,20 @@ contract Issue6634Test is DSTest {
 
         Vm.AccountAccess[] memory called = vm.stopAndReturnStateDiff();
         address addr = vm.computeCreate2Address(
-            0,
-            keccak256(abi.encodePacked(type(Box).creationCode, uint(1))),
-            address(CREATE2_DEPLOYER)
+            0, keccak256(abi.encodePacked(type(Box).creationCode, uint256(1))), address(CREATE2_DEPLOYER)
         );
-        assertEq(
-            addr,
-            called[1].account,
-            "state diff contract address is not correct"
-        );
-        assertEq(
-            address(a),
-            called[1].account,
-            "returned address is not correct"
-        );
+        assertEq(addr, called[1].account, "state diff contract address is not correct");
+        assertEq(address(a), called[1].account, "returned address is not correct");
 
         assertEq(called.length, 2, "incorrect length");
+        assertEq(uint256(called[0].kind), uint256(Vm.AccountAccessKind.Call), "first AccountAccess is incorrect kind");
+        assertEq(called[0].account, CREATE2_DEPLOYER, "first AccountAccess accout is incorrect");
+        assertEq(called[0].accessor, accessor, "first AccountAccess accessor is incorrect");
         assertEq(
-            uint256(called[0].kind),
-            uint256(Vm.AccountAccessKind.Call),
-            "first AccountAccess is incorrect kind"
+            uint256(called[1].kind), uint256(Vm.AccountAccessKind.Create), "second AccountAccess is incorrect kind"
         );
-        assertEq(
-            called[0].account,
-            CREATE2_DEPLOYER,
-            "first AccountAccess accout is incorrect"
-        );
-        assertEq(
-            called[0].accessor,
-            accessor,
-            "first AccountAccess accessor is incorrect"
-        );
-        assertEq(
-            uint256(called[1].kind),
-            uint256(Vm.AccountAccessKind.Create),
-            "second AccountAccess is incorrect kind"
-        );
-        assertEq(
-            called[1].accessor,
-            CREATE2_DEPLOYER,
-            "second AccountAccess accessor is incorrect"
-        );
-        assertEq(
-            called[1].account,
-            address(a),
-            "second AccountAccess account is incorrect"
-        );
+        assertEq(called[1].accessor, CREATE2_DEPLOYER, "second AccountAccess accessor is incorrect");
+        assertEq(called[1].account, address(a), "second AccountAccess account is incorrect");
     }
 
     function testBroadcast() public {
@@ -141,51 +77,19 @@ contract Issue6634Test is DSTest {
 
         Vm.AccountAccess[] memory called = vm.stopAndReturnStateDiff();
         address addr = vm.computeCreate2Address(
-            0,
-            keccak256(abi.encodePacked(type(Box).creationCode, uint(1))),
-            address(CREATE2_DEPLOYER)
+            0, keccak256(abi.encodePacked(type(Box).creationCode, uint256(1))), address(CREATE2_DEPLOYER)
         );
-        assertEq(
-            addr,
-            called[1].account,
-            "state diff contract address is not correct"
-        );
-        assertEq(
-            address(a),
-            called[1].account,
-            "returned address is not correct"
-        );
+        assertEq(addr, called[1].account, "state diff contract address is not correct");
+        assertEq(address(a), called[1].account, "returned address is not correct");
 
         assertEq(called.length, 2, "incorrect length");
+        assertEq(uint256(called[0].kind), uint256(Vm.AccountAccessKind.Call), "first AccountAccess is incorrect kind");
+        assertEq(called[0].account, CREATE2_DEPLOYER, "first AccountAccess accout is incorrect");
+        assertEq(called[0].accessor, accessor, "first AccountAccess accessor is incorrect");
         assertEq(
-            uint256(called[0].kind),
-            uint256(Vm.AccountAccessKind.Call),
-            "first AccountAccess is incorrect kind"
+            uint256(called[1].kind), uint256(Vm.AccountAccessKind.Create), "second AccountAccess is incorrect kind"
         );
-        assertEq(
-            called[0].account,
-            CREATE2_DEPLOYER,
-            "first AccountAccess accout is incorrect"
-        );
-        assertEq(
-            called[0].accessor,
-            accessor,
-            "first AccountAccess accessor is incorrect"
-        );
-        assertEq(
-            uint256(called[1].kind),
-            uint256(Vm.AccountAccessKind.Create),
-            "second AccountAccess is incorrect kind"
-        );
-        assertEq(
-            called[1].accessor,
-            CREATE2_DEPLOYER,
-            "second AccountAccess accessor is incorrect"
-        );
-        assertEq(
-            called[1].account,
-            address(a),
-            "second AccountAccess account is incorrect"
-        );
+        assertEq(called[1].accessor, CREATE2_DEPLOYER, "second AccountAccess accessor is incorrect");
+        assertEq(called[1].account, address(a), "second AccountAccess account is incorrect");
     }
 }
